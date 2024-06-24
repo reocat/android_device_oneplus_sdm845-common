@@ -62,6 +62,17 @@ if [ -z "${SRC}" ]; then
     SRC="adb"
 fi
 
+function blob_fixup() {
+    case "${1}" in
+        system_ext/lib64/libwfdnative.so)
+            sed -i "s/android.hidl.base@1.0.so/libhidlbase.so\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00/" "${2}"
+            ;;
+        vendor/etc/init/android.hardware.biometrics.fingerprint@2.1-service.oneplus.rc)
+            sed -i "s/@2.1-service$/@2.1-service.oneplus/" "${2}"
+            ;;
+    esac
+}
+
 if [ -z "${ONLY_FIRMWARE}" ] && [ -z "${ONLY_TARGET}" ]; then
     # Initialize the helper for common device
     setup_vendor "${DEVICE_COMMON}" "${VENDOR_COMMON:-$VENDOR}" "${ANDROID_ROOT}" true "${CLEAN_VENDOR}"
