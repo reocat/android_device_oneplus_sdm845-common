@@ -471,7 +471,7 @@ PRODUCT_PACKAGES += \
 
 # tri-state-key
 PRODUCT_PACKAGES += \
-    tri-state-key_daemon.vendor
+    KeyHandler 
 
 # Update engine
 PRODUCT_PACKAGES += \
